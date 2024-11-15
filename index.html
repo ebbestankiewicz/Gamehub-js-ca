@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Game Store</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../checkout/index.html">Checkout</a></li>
+            </ul>
+        </nav>
+        <h1>Welcome to Game Store</h1>
+        <select id="filter">
+            <option value="none">Filter by...</option>
+            <option value="price-low-high">Price: Low to High</option>
+            <option value="price-high-low">Price: High to Low</option>
+            <option value="age">Age Rating</option>
+            <option value="release">Release Date</option>
+            <option value="genre">Genre</option>
+            <option value="sale">On Sale</option>
+        </select>
+    </header>
+
+    <main>
+        <div id="loading-indicator" style="display:none;">Loading...</div>
+        <div id="product-container"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Game Store</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
