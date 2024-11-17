@@ -36,7 +36,6 @@ async function displayBasket() {
     }
 }
 
-
 function removeFromBasket(productId) {
     const basketItems = JSON.parse(localStorage.getItem('basket')) || [];
 
@@ -45,7 +44,6 @@ function removeFromBasket(productId) {
 
     displayBasket();
 }
-
 
 async function fetchProductById(productId) {
     const url = `https://v2.api.noroff.dev/gamehub/${productId}`;
@@ -69,7 +67,7 @@ function displayProductInBasket(product) {
     const basketContainer = document.getElementById('basket-items');
     if (!basketContainer) return;
 
-    const imageUrl = product.image?.url || './images/fallback-image.jpg';
+    const imageUrl = product.image?.url || '../../images/fallback-image.jpg';
     const title = product.title || 'Product Title Not Available';
     const price = (product.discountedPrice ?? product.price).toFixed(2);
 
@@ -92,14 +90,16 @@ function displayProductInBasket(product) {
 
 function confirmOrder() {
     localStorage.removeItem('basket');
-    window.location.href = '/checkout/confirmation/index.html';
+    window.location.href = '../../checkout/confirmation/index.html';
 }
 
 function showLoadingIndicator() {
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.id = 'loading-indicator';
-    loadingIndicator.innerText = 'Loading...';
-    document.body.appendChild(loadingIndicator);
+    if (!document.getElementById('loading-indicator')) {
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loading-indicator';
+        loadingIndicator.innerText = 'Loading...';
+        document.body.appendChild(loadingIndicator);
+    }
 }
 
 function hideLoadingIndicator() {
