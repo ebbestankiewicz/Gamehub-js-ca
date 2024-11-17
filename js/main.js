@@ -42,7 +42,7 @@ function displayProducts(products) {
             : `<p>$${product.price.toFixed(2)}</p>`;
 
         productElement.innerHTML = `
-            <a href="../products/index.html?id=${product.id}">
+            <a href="./product/index.html?id=${product.id}">
                 <img src="${imageUrl}" alt="${product.title}" />
                 <h3>${product.title}</h3>
                 ${priceHtml}
@@ -101,7 +101,6 @@ function applyFilter() {
 
     displayProducts(sortedProducts);
 }
-
 
 function showLoadingIndicator() {
     if (!document.getElementById('loading-indicator')) {
