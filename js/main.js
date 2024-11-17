@@ -43,7 +43,7 @@ function displayProducts(products) {
 
         // Correct the link to the product detail page inside 'products' folder
         productElement.innerHTML = `
-            <a href="/products/index.html?id=${product.id}">
+            <a href="products/index.html?id=${product.id}">
                 <img src="${imageUrl}" alt="${product.title}" />
                 <h3>${product.title}</h3>
                 ${priceHtml}
