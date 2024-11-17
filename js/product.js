@@ -2,18 +2,25 @@ async function fetchProductById(productId) {
     const url = `https://v2.api.noroff.dev/gamehub/${productId}`;
 
     try {
+        console.log("Fetching product by ID:", productId);
+
         const response = await fetch(url);
 
         if (!response.ok) {
             const errorDetails = await response.json();
-            throw new Error(`Error ${response.status}: ${JSON.stringify(errorDetails)}`);
+            console.error(`Error ${response.status}: ${JSON.stringify(errorDetails)}`);
+            alert(`Error fetching product: ${errorDetails.message}`);
+            return;
         }
 
-        const product = await response.json();
-        if (product) {
+        const result = await response.json();
+        const product = result?.data;
+        console.log('Fetched Product:', product);
+
+        if (product && product.id) {
             displayProduct(product);
         } else {
-            throw new Error('Product data is not in the expected format');
+            throw new Error('Product data is missing or in the wrong format');
         }
     } catch (error) {
         console.error('Failed to fetch product:', error);
@@ -23,7 +30,13 @@ async function fetchProductById(productId) {
 
 function displayProduct(productData) {
     const productContainer = document.getElementById('product-details');
-    if (!productContainer) return;
+    if (!productContainer) {
+        console.error('Product details container not found!');
+        alert("Error: Product details container not found!");
+        return;
+    }
+
+    console.log('Displaying Product:', productData);
 
     const imageUrl = productData.image?.url || '../../images/fallback-image.jpg';
     const title = productData.title || 'Product Title Not Available';
@@ -32,15 +45,19 @@ function displayProduct(productData) {
     const discountedPrice = typeof productData.discountedPrice === 'number' ? productData.discountedPrice.toFixed(2) : null;
     const ageRating = productData.ageRating || 'Not Rated';
 
-    productContainer.innerHTML = `
+    const productHTML = `
         <h2>${title}</h2>
-        <img src="${imageUrl}" alt="${title}" />
+        <img src="${imageUrl}" alt="${title}" style="width: 100%; max-width: 300px;" />
         <p>${description}</p>
         <p><strong>Age Rating:</strong> ${ageRating}</p>
         <p><strong>Price:</strong> $${price}</p>
         ${discountedPrice && discountedPrice < price ? `<p><strong>Discounted Price:</strong> $${discountedPrice}</p>` : ''}
         <button onclick="addToBasket('${productData.id}')">Add to Basket</button>
     `;
+    
+    console.log('Generated HTML:', productHTML);
+
+    productContainer.innerHTML = productHTML;
 }
 
 function addToBasket(productId) {
@@ -56,6 +73,7 @@ function addToBasket(productId) {
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
@@ -64,5 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchProductById(productId);
     } else {
         alert('Product ID not found!');
+        console.error('Product ID not found in URL.');
     }
 });
