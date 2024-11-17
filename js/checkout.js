@@ -90,7 +90,7 @@ function removeFromBasket(productId) {
 
 function confirmOrder() {
     localStorage.removeItem('basket');
-    window.location.href = '/checkout/confirmation/index.html';
+    window.location.href = 'confirmation/index.html';
 }
 
 function showLoadingIndicator() {
