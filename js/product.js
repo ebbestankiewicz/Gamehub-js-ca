@@ -1,4 +1,3 @@
-
 async function fetchProductById(productId) {
     const url = `https://v2.api.noroff.dev/gamehub/${productId}`;
 
@@ -11,8 +10,8 @@ async function fetchProductById(productId) {
         }
 
         const product = await response.json();
-        if (product?.data) {
-            displayProduct(product.data);
+        if (product) {
+            displayProduct(product);
         } else {
             throw new Error('Product data is not in the expected format');
         }
@@ -22,16 +21,15 @@ async function fetchProductById(productId) {
     }
 }
 
-
 function displayProduct(productData) {
     const productContainer = document.getElementById('product-details');
     if (!productContainer) return;
 
-    const imageUrl = productData.image?.url || './images/fallback-image.jpg';
+    const imageUrl = productData.image?.url || '../../images/fallback-image.jpg';
     const title = productData.title || 'Product Title Not Available';
     const description = productData.description || 'No description available.';
     const price = typeof productData.price === 'number' ? productData.price.toFixed(2) : 'N/A';
-    const discountedPrice = typeof productData.discountedPrice === 'number' ? productData.discountedPrice.toFixed(2) : 'N/A';
+    const discountedPrice = typeof productData.discountedPrice === 'number' ? productData.discountedPrice.toFixed(2) : null;
     const ageRating = productData.ageRating || 'Not Rated';
 
     productContainer.innerHTML = `
@@ -40,11 +38,10 @@ function displayProduct(productData) {
         <p>${description}</p>
         <p><strong>Age Rating:</strong> ${ageRating}</p>
         <p><strong>Price:</strong> $${price}</p>
-        ${discountedPrice < price ? `<p><strong>Discounted Price:</strong> $${discountedPrice}</p>` : ''}
+        ${discountedPrice && discountedPrice < price ? `<p><strong>Discounted Price:</strong> $${discountedPrice}</p>` : ''}
         <button onclick="addToBasket('${productData.id}')">Add to Basket</button>
     `;
 }
-
 
 function addToBasket(productId) {
     if (!productId) return;
@@ -58,7 +55,6 @@ function addToBasket(productId) {
         alert('Product is already in the basket.');
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
