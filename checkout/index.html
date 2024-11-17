@@ -4,32 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Game Store</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="../../index.html">Home</a></li>
-                <li><a href="./index.html">Checkout</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Checkout</a></li>
             </ul>
         </nav>
         <h1>Your Basket</h1>
     </header>
-
     <main id="checkout-page">
         <div id="basket-items"></div>
         <div id="total-price" style="font-weight: bold; margin-top: 20px;"></div>
         <button id="checkout-button" onclick="confirmOrder()">Checkout</button>
         <div id="loading-indicator" style="display:none;">Loading...</div>
     </main>
-
     <footer>
         <p>&copy; 2024 Game Store</p>
     </footer>
-
-    <script src="../../js/checkout.js"></script>
+    <script src="../js/checkout.js"></script>
 </body>
-</html>
-
 </html>
