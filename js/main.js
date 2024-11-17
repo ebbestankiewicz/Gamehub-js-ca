@@ -31,7 +31,7 @@ function displayProducts(products) {
     const productContainer = document.getElementById('product-container');
     if (!productContainer) return;
 
-    productContainer.innerHTML = '';
+    productContainer.innerHTML = ''; 
     products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.className = 'product';
@@ -41,8 +41,9 @@ function displayProducts(products) {
             ? `<p class="strikethrough">$${product.price.toFixed(2)}</p><p>$${product.discountedPrice.toFixed(2)}</p>`
             : `<p>$${product.price.toFixed(2)}</p>`;
 
+        // Correct the link to the product detail page inside 'products' folder
         productElement.innerHTML = `
-            <a href="/products/index.html?id=${product.id}">
+            <a href="products/index.html?id=${product.id}">
                 <img src="${imageUrl}" alt="${product.title}" />
                 <h3>${product.title}</h3>
                 ${priceHtml}
